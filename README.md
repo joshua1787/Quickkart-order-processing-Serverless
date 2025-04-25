@@ -1,21 +1,20 @@
-# Quickkart-order-processing-Serverless
+// Project: QuickKart Order Processing System (Enterprise-Grade)
 
 
+# 🚀 QuickKart Serverless Order Processing System (Python + Boto3)
 
-# 🚀 QuickKart Serverless Order Processing System
-
-A full-stack, enterprise-grade **serverless order processing system** that simulates real-time workflows used in production at companies like Amazon, Flipkart, and Walmart. Designed using AWS-managed services and DevOps best practices for high availability, scalability, and cost-efficiency.
+A full-stack, enterprise-grade **serverless order processing system** built using **Python and Boto3**, simulating real-world workflows used at companies like Amazon, Flipkart, and Walmart. Designed with AWS-managed services and DevOps best practices for high availability, scalability, and cost-efficiency.
 
 ---
 
 ## 🌐 Live Architecture Overview
 
 ```
-User ➝ React App ➝ API Gateway ➝ Lambda (submitOrder) ➝ SQS
-                                                ⬇
-                                  Lambda (processOrder)
-                                       ⬇        ⬇        ⬇
-                                 DynamoDB     S3     SNS Alerts
+User ➝ React App ➝ API Gateway ➝ Lambda (submitOrder.py) ➝ SQS
+                                                  ⬇
+                                    Lambda (processOrder.py)
+                                         ⬇        ⬇        ⬇
+                                   DynamoDB     S3     SNS Alerts
 ```
 
 ---
@@ -23,45 +22,46 @@ User ➝ React App ➝ API Gateway ➝ Lambda (submitOrder) ➝ SQS
 ## 🧰 Tech Stack
 
 | Layer           | Technology Used                                                |
-|----------------|----------------------------------------------------------------|
-| Frontend       | React.js                                                      |
-| API Layer      | AWS API Gateway                                               |
-| Compute        | AWS Lambda (Node.js)                                          |
-| Messaging      | AWS SQS (FIFO queue with DLQ support)                         |
-| Storage        | Amazon DynamoDB (Order Data), Amazon S3 (File Storage)        |
-| Notifications  | Amazon SNS (Success/Failure Alerts)                           |
-| Infrastructure | Terraform (IaC), GitHub Actions (CI/CD pipeline)              |
+|-----------------|-----------------------------------------------------------------|
+| Frontend        | React.js                                                       |
+| API Layer       | AWS API Gateway                                                |
+| Compute         | AWS Lambda (Python 3.12 + Boto3)                               |
+| Messaging       | AWS SQS (FIFO queue with DLQ support)                          |
+| Storage         | Amazon DynamoDB (Order Data), Amazon S3 (File Storage)         |
+| Notifications   | Amazon SNS (Success/Failure Alerts)                            |
+| Infrastructure  | Terraform (IaC), GitHub Actions (CI/CD pipeline)               |
 
 ---
 
 ## 🚀 Features
 
-- 📦 Accepts real-time customer orders through a frontend form
-- 🔒 Validates and processes orders using Lambda & SQS
-- 🗃️ Stores order details in DynamoDB with timestamp
-- 🧾 Stores optional files in S3 with encryption
-- 📩 Sends order status alerts to teams using SNS
-- 🛠️ Fully automated deployment via GitHub Actions + Terraform
+- 📦 Accepts real-time customer orders via frontend form
+- 🔒 Validates and processes orders using Python Lambdas
+- 🗃️ Stores order data in DynamoDB with timestamps
+- 🧾 Uploads optional files to S3 with encryption
+- 📩 Sends notifications through SNS
+- 🛠️ Fully automated deployments with GitHub Actions and Terraform
 
 ---
 
 ## 🔧 Project Structure
+
 ```
 quickkart-order-processing/
 │
-├── frontend/              # React app for placing orders
+├── frontend/               # React app to place orders
 │
-├── lambda/                # Serverless functions
-│   ├── submitOrder/       # API Gateway Lambda
-│   └── processOrder/      # SQS-triggered Lambda
+├── lambda/                 # Serverless functions
+│   ├── submitOrder.py       # API Gateway Lambda (Python)
+│   └── processOrder.py      # SQS-triggered Lambda (Python)
 │
-├── infra/                 # Terraform for AWS infra
+├── infra/                  # Terraform files
 │   ├── dynamodb.tf
 │   ├── sqs.tf
 │   ├── sns.tf
 │   └── s3.tf
 │
-├── .github/workflows/     # GitHub Actions CI/CD pipeline
+├── .github/workflows/       # GitHub Actions CI/CD
 │   └── deploy.yml
 │
 └── README.md
@@ -75,7 +75,8 @@ quickkart-order-processing/
 - AWS Account with programmatic access (IAM user)
 - Node.js + npm
 - Terraform CLI installed
-- GitHub repo with Secrets set:
+- Python 3.12 installed
+- GitHub repository with secrets:
   - `AWS_ACCESS_KEY_ID`
   - `AWS_SECRET_ACCESS_KEY`
 
@@ -92,12 +93,12 @@ terraform init
 terraform apply -auto-approve
 ```
 
-### 3️⃣ Deploy Lambda Functions
+### 3️⃣ Deploy Lambda Functions (Python)
 ```bash
-zip -j submitOrder.zip lambda/submitOrder/index.js
+zip submitOrder.zip lambda/submitOrder.py
 aws lambda update-function-code --function-name submitOrder --zip-file fileb://submitOrder.zip
 
-zip -j processOrder.zip lambda/processOrder/index.js
+zip processOrder.zip lambda/processOrder.py
 aws lambda update-function-code --function-name processOrder --zip-file fileb://processOrder.zip
 ```
 
@@ -107,30 +108,31 @@ cd frontend
 npm install
 npm start
 ```
-👉 Update API URL in `App.js` with your API Gateway URL
+👉 Update API URL in `App.js` with your API Gateway endpoint.
 
 ---
 
 ## ✅ How to Know It's Working
 
-- ✅ Submit order via form → API Gateway response is success
-- ✅ Order appears in DynamoDB table
-- ✅ File (if any) is stored in S3 bucket
-- ✅ Email/SMS sent from SNS topic
-- ✅ GitHub Actions runs `deploy.yml` successfully
+- ✅ Submit order via frontend form
+- ✅ API Gateway responds successfully
+- ✅ DynamoDB stores order data
+- ✅ S3 stores uploaded files (optional)
+- ✅ SNS sends email/SMS notification
+- ✅ GitHub Actions pipeline completes successfully
 
 ---
 
-## 📷 Screenshots
-_(Add screenshots of form submission, DynamoDB, SQS, logs)_
+## 📷 Screenshots (Optional)
+_(Form submission, SQS messages, DynamoDB items, SNS email received)_
 
 ---
 
 ## 👨‍💻 Author
 **Joshua Veeraiah**  
-DevOps & Cloud Enthusiast aspiring to work on scalable infrastructure with real-time automation. Connect with me on [LinkedIn](https://linkedin.com/in/your-profile)
+DevOps & Cloud Enthusiast aspiring to deliver real-time, scalable solutions using AWS and modern DevOps practices. Let's connect on [LinkedIn](https://linkedin.com/in/your-profile)
 
 ---
 
 ## 📄 License
-This project is for educational and demo purposes. Customize it for production use!
+This project is for educational, practice, and demo purposes. Customize for production use.
