@@ -1,10 +1,7 @@
 # Quickkart-order-processing-Serverless
-// Project: QuickKart Order Processing System (Enterprise-Grade)
 
-// === FILE: frontend/src/App.js ===
-<unchanged>...
 
-// === FILE: README.md ===
+
 # 🚀 QuickKart Serverless Order Processing System
 
 A full-stack, enterprise-grade **serverless order processing system** that simulates real-time workflows used in production at companies like Amazon, Flipkart, and Walmart. Designed using AWS-managed services and DevOps best practices for high availability, scalability, and cost-efficiency.
