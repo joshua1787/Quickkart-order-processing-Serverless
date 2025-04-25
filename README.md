@@ -111,13 +111,6 @@ aws sns subscribe \
 
 ---
 
-## 📣 LinkedIn Post (You Can Use This)
-
-> 🚀 Just built and deployed a production-grade **Serverless Order Processing System** on AWS!  
-> Used Lambda, API Gateway, SQS, DynamoDB, SNS, Terraform, React & GitHub Actions.  
-> Frontend hosted live on S3. Backend runs completely serverless with CI/CD.  
-> ✅ Real project. Real experience. Real cloud power.  
-> 🔗 [GitHub Repo] · 🌍 [Live Project]
 
 ---
 
