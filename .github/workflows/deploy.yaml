@@ -1,0 +1,43 @@
+name: Deploy Serverless Infra and Code
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Deploy Terraform Infrastructure
+      working-directory: infra
+      run: |
+        terraform init
+        terraform apply -auto-approve
+
+    - name: Zip and deploy submitOrder Lambda
+      run: |
+        zip -j submitOrder.zip lambda/submitOrder.py
+        aws lambda update-function-code \
+          --function-name submitOrder \
+          --zip-file fileb://submitOrder.zip \
+          --region us-east-1
+
+    - name: Zip and deploy processOrder Lambda
+      run: |
+        zip -j processOrder.zip lambda/processOrder.py
+        aws lambda update-function-code \
+          --function-name processOrder \
+          --zip-file fileb://processOrder.zip \
+          --region us-east-1
+
